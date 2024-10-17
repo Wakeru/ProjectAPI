@@ -7,16 +7,30 @@ pygame.mixer.init()
 
 
 def play_song():
-    pygame.mixer.music.load("ProjAPI\music\Karma Police - Pierce The Veil.mp3")  # Change to your music file path
-    response = requests.get("http://127.0.0.1:5000/get-track/{track_ID}")
-    songs = response.json()
-    pygame.mixer.music.play(loops=0) #so it wont loop
+    track_id = track_id_entry.get()
+    #pygame.mixer.music.load({})  # Change to your music file path
+    try:
+        response = requests.get(f"http://127.0.0.1:5000/get-track/{track_id}")  # Get the info from API
+        if response.status_code == 200:
+            track_data = response.json()
+            # result_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
+            result_label.config(text=f"Its working!")
+            pygame.mixer.music.load("ProjAPI\music\Vhs.mp3") #cannot be named \vhs.mp3 cuz \v means something diff!!!
+            pygame.mixer.music.play(loops=0)
+            pygame.time.delay(2000)
+            pygame.mixer.music.load(track_data['path'])
+            pygame.mixer.music.play(loops=0)
+        else:
+            result_label.config(text="Song not found")
+    except Exception as e:
+        result_label.config(text=f"Error: {e}")
+    #pygame.mixer.music.play(loops=0) #so it wont loop
 
     
 def fetch_track():
     track_id = track_id_entry.get()  # Get the song ID from the text field
     try:
-        response = requests.get(f"http://127.0.0.1:5000/get-song/{track_id}")  # Adjust the URL as necessary
+        response = requests.get(f"http://127.0.0.1:5000/get-track/{track_id}")  # Adjust the URL as necessary
         if response.status_code == 200:
             track_data = response.json()
             result_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
@@ -24,6 +38,19 @@ def fetch_track():
             result_label.config(text="Song not found")
     except Exception as e:
         result_label.config(text=f"Error: {e}")
+
+
+def search():
+    track_str = search_entry.get()  # Get the text
+    try:
+        response = requests.get(f"http://127.0.0.1:5000/search-track/{track_str}")  
+        if response.status_code == 200:
+            track_data = response.json()
+            result_search_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
+        else:
+            result_search_label.config(text="Song not found")
+    except Exception as e:
+        result_search_label.config(text=f"Error 2: {e}")
 
 def fetch_songs(): #making sure API works as intended
     try:
@@ -58,7 +85,7 @@ text_area.pack(pady=20)
 track_id_entry = tk.Entry(window, width=10)
 track_id_entry.pack(pady=20)
 
-# button to fetch ALL songs
+# button to fetch ONE song
 fetch_button = tk.Button(window, text="Fetch Track", command=fetch_track)
 fetch_button.pack(pady=10)
 
@@ -70,6 +97,21 @@ play_button.pack(pady=10)
 # text area stinks
 result_label = tk.Label(window, text="")
 result_label.pack(pady=20)
+
+
+
+
+#text entry for search
+search_entry = tk.Entry(window, width=10)
+search_entry.pack(pady=20)
+
+#search button
+search_button = tk.Button(window, text="Get the song", command=search)
+search_button.pack(pady=10)
+
+#results for search
+result_search_label = tk.Label(window, text="")
+result_search_label.pack(pady=20)
 
 
 # Run the Tkinter main loop
