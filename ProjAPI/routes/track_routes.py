@@ -10,7 +10,7 @@ playlists = []
 # Preloaded list of 10 songs
 tracks = [
     {"id": 1, "title": "Karma Police", "artist": "Pierce The Veil", "album": "Karma Police", "genre": "Rock", "path": "ProjAPI\music\Karma Police - Pierce The Veil.mp3"},
-    {"id": 2, "title": "Bohemian Rhapsody", "artist": "Queen", "album": "A Night at the Opera", "genre": "Rock"},
+    {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI\music\Blow Out.mp3"},
     {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\SOFALOVE.mp3"},
     {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3"},
     # Add more songs but first figure out how to play them
@@ -63,7 +63,7 @@ def search_song():
            (not artist_query2 or artist_query2 in track["artist"].lower()) and
            (not album_query3 or album_query3 in track["album"].lower())
     ]
-    # CHATGBT SAYS: IFFFF There is no search query for the title (not title_query), then it won't filter by title.
+    # IFFFF There is no search query for the title (not title_query), then it won't filter by title.
     #  OR, if a title_query is provided, it then checks if the title_query is found within the track's title (title_query in track["title"].lower()).
 
 #This is a WAY more flexible since it is using OR (will in include stuff, that will even remotley resembles it)

@@ -5,7 +5,7 @@ import pygame
 #initialize the pygame mixer
 pygame.mixer.init()
 
-
+#works at least
 def play_song():
     track_id = track_id_entry.get()
     #pygame.mixer.music.load({})  # Change to your music file path
@@ -14,7 +14,7 @@ def play_song():
         if response.status_code == 200:
             track_data = response.json()
             # result_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
-            result_label.config(text=f"Its working!")
+            result_label.config(text=f"Now playing - Title: {track_data['title']}, Artist: {track_data['artist']}")
             pygame.mixer.music.load("ProjAPI\music\Vhs.mp3") #cannot be named \vhs.mp3 cuz \v means something diff!!!
             pygame.mixer.music.play(loops=0)
             pygame.time.delay(2000)
@@ -41,9 +41,14 @@ def fetch_track():
 
 
 def search():
-    track_str = search_entry.get()  # Get the text
+    #two approaches, make one single text entry (HARD) i find this to be quite impossible and i have a time limit but maybe?
+    # make multuiple entries(EASY) i have a vision but omg
+    query = search_entry.get() # Get the text
+    # track_title = search_title_entry.get()  
+    # track_artist = search_artist_entry.get()
+    # track_album = search_ablum_entry.get()
     try:
-        response = requests.get(f"http://127.0.0.1:5000/search-track/{track_str}")  
+        response = requests.get(f"http://127.0.0.1:5000/search-track/", params={"query": query})  #how to implement it.... no clue
         if response.status_code == 200:
             track_data = response.json()
             result_search_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
