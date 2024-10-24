@@ -13,6 +13,8 @@ tracks = [
     {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI\music\Blow Out.mp3"},
     {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\SOFALOVE.mp3"},
     {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3"},
+    {"id": 4, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": ""},
+    
     # Add more songs but first figure out how to play them
 ]
 
@@ -52,27 +54,29 @@ def search_song():
     artist_query2 = request.args.get("artist", "").lower()
     album_query3 = request.args.get("album", "").lower()
     # Checking if all queries are empty, return error if nothing is provided
+    print(f"Received title_query: '{title_query}', artist_query: '{artist_query2}', album_query: '{album_query3}'")
+
     if not title_query and not artist_query2 and not album_query3:
         return jsonify({"error": "No search query provided"}), 400
 
     # Searching for tracks that match any of the queries
-    matching_tracks = [
-        track for track in tracks
-        #THESE ARE ALL TRUE?
-        if (not title_query or title_query in track["title"].lower()) and #if the query is EMPTY OR has SOMETHING, within the dict, pass it as true
-           (not artist_query2 or artist_query2 in track["artist"].lower()) and
-           (not album_query3 or album_query3 in track["album"].lower())
-    ]
+    # matching_tracks = [
+    #     track for track in tracks
+    #     #THESE ARE ALL TRUE?
+    #     if (not title_query or title_query in track["title"].lower()) and 
+    #        (not artist_query2 or artist_query2 in track["artist"].lower()) and
+    #        (not album_query3 or album_query3 in track["album"].lower())
+    # ]
     # IFFFF There is no search query for the title (not title_query), then it won't filter by title.
     #  OR, if a title_query is provided, it then checks if the title_query is found within the track's title (title_query in track["title"].lower()).
 
-#This is a WAY more flexible since it is using OR (will in include stuff, that will even remotley resembles it)
-#     matching_tracks = [
-#     track for track in tracks
-#     if (title_query and title_query in track["title"].lower()) or
-#        (artist_query2 or artist_query2 in track["artist"].lower()) or
-#        (album_query3 or album_query3 in track["album"].lower())
-# ]
+    #This is a WAY more flexible since it is using OR (will in include stuff, that will even remotley resembles it)
+    matching_tracks = [
+    track for track in tracks
+        if (title_query and title_query in track["title"].lower()) or 
+           (artist_query2 and artist_query2 in track["artist"].lower()) or
+           (album_query3 and album_query3 in track["album"].lower())
+]
     if matching_tracks:
         return jsonify(matching_tracks), 200
     else:

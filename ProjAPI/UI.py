@@ -43,19 +43,30 @@ def fetch_track():
 def search():
     #two approaches, make one single text entry (HARD) i find this to be quite impossible and i have a time limit but maybe?
     # make multuiple entries(EASY) i have a vision but omg
-    query = search_entry.get() # Get the text
-    # track_title = search_title_entry.get()  
-    # track_artist = search_artist_entry.get()
-    # track_album = search_ablum_entry.get()
+    #query = search_entry.get() # Get the text
+    track_title = search_title_entry.get()      
+    track_artist = search_artist_entry.get()
+    track_album = search_ablum_entry.get()
+    params = {} #initialize dictionary
+    #These will either be false or true depending if anything was provided
+    if track_title:
+        params["title"] = track_title #adding the input within the params
+    if track_artist:
+        params["artist"] = track_artist
+    if track_album:
+        params["album"] = track_album
     try:
-        response = requests.get(f"http://127.0.0.1:5000/search-track/", params={"query": query})  #how to implement it.... no clue
+        response = requests.get("http://127.0.0.1:5000/search-track", params=params)  #how to implement it.... no clue
+        print(response.text)
+        
         if response.status_code == 200:
             track_data = response.json()
-            result_search_label.config(text=f"Title: {track_data['title']}, Artist: {track_data['artist']}")
+            result_text = "\n".join(f"Title: {track['title']}, Artist: {track['artist']}, Album: {track['album']}" for track in track_data)
+            result_search_label.config(text=result_text)  # Update label with results
         else:
             result_search_label.config(text="Song not found")
     except Exception as e:
-        result_search_label.config(text=f"Error 2: {e}")
+        result_search_label.config(text=f"Error: {e}")
 
 def fetch_songs(): #making sure API works as intended
     try:
@@ -104,15 +115,29 @@ result_label = tk.Label(window, text="")
 result_label.pack(pady=20)
 
 
+#container window for title entry and label
+input_frame = tk.Frame(window, bd=5, relief=tk.SUNKEN)
+input_frame.pack(pady=10)
 
+#the  elements within the window
+title_label = tk.Label(input_frame, text="Title:")
+title_label.grid(row=0, column=0, padx=10, pady=10)
+search_title_entry = tk.Entry(input_frame, width=10)
+search_title_entry.grid(row=0, column=1, padx=10, pady=10)
 
-#text entry for search
-search_entry = tk.Entry(window, width=10)
-search_entry.pack(pady=20)
+artist_label = tk.Label(input_frame, text="Artist:")
+artist_label.grid(row=1, column=0, padx=10, pady=10)
+search_artist_entry = tk.Entry(input_frame, width=10)
+search_artist_entry.grid(row=1, column=1, padx=10, pady=10)
+
+album_label = tk.Label(input_frame, text="Album:")
+album_label.grid(row=2, column=0, padx=10, pady=10)
+search_ablum_entry = tk.Entry(input_frame, width=10)
+search_ablum_entry.grid(row=2, column=1, padx=10, pady=10)
 
 #search button
 search_button = tk.Button(window, text="Get the song", command=search)
-search_button.pack(pady=10)
+search_button.pack(pady=0)
 
 #results for search
 result_search_label = tk.Label(window, text="")
