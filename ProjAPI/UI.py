@@ -43,12 +43,12 @@ def fetch_track():
 def search():
     #two approaches, make one single text entry (HARD) i find this to be quite impossible and i have a time limit but maybe?
     # make multuiple entries(EASY) i have a vision but omg
-    #query = search_entry.get() # Get the text
+    #query = search_entry.get() # Get the text and try the hard way
     track_title = search_title_entry.get()      
     track_artist = search_artist_entry.get()
     track_album = search_ablum_entry.get()
     params = {} #initialize dictionary
-    #These will either be false or true depending if anything was provided
+    #These will either be false or true depending if anything was provided in the entry
     if track_title:
         params["title"] = track_title #adding the input within the params
     if track_artist:
@@ -68,9 +68,15 @@ def search():
     except Exception as e:
         result_search_label.config(text=f"Error: {e}")
 
+# find a website that can split a song into vocals and beats
+#use channels to play two audios at the same time
+link1 = ("https://stackoverflow.com/questions/38028970/how-to-assign-sounds-to-channels-in-pygame")
+# make a stop button, forgot aobut that
+
+
 def fetch_songs(): #making sure API works as intended
     try:
-        response = requests.get("http://127.0.0.1:5000/get-ALL-tracks")  # Your Flask API endpoint
+        response = requests.get("http://127.0.0.1:5000/get-ALL-tracks")  # Flask API endpoint
         songs = response.json()  # Parse the response JSON
         
         # Clear the text area before inserting new data
@@ -124,21 +130,20 @@ title_label = tk.Label(input_frame, text="Title:")
 title_label.grid(row=0, column=0, padx=10, pady=10)
 search_title_entry = tk.Entry(input_frame, width=10)
 search_title_entry.grid(row=0, column=1, padx=10, pady=10)
-
+#---------------
 artist_label = tk.Label(input_frame, text="Artist:")
 artist_label.grid(row=1, column=0, padx=10, pady=10)
 search_artist_entry = tk.Entry(input_frame, width=10)
 search_artist_entry.grid(row=1, column=1, padx=10, pady=10)
-
+#---------------
 album_label = tk.Label(input_frame, text="Album:")
 album_label.grid(row=2, column=0, padx=10, pady=10)
 search_ablum_entry = tk.Entry(input_frame, width=10)
 search_ablum_entry.grid(row=2, column=1, padx=10, pady=10)
-
 #search button
 search_button = tk.Button(window, text="Get the song", command=search)
 search_button.pack(pady=0)
-
+#---------------
 #results for search
 result_search_label = tk.Label(window, text="")
 result_search_label.pack(pady=20)

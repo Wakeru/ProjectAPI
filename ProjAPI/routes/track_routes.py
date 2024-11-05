@@ -15,7 +15,7 @@ tracks = [
     {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3"},
     {"id": 4, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": ""},
     
-    # Add more songs but first figure out how to play them
+    # Add more songs 
 ]
 
 
@@ -36,7 +36,7 @@ def get_user(user_id):
         user_data["extra"] = extra
     return jsonify(user_data), 200
 
-#make a new app route for creating users, though idk if i need it atm
+#make a new app route for creating users, NOT NEEDED ATM
 
 # TRACK ENDPOINTS
 #Get a single track, if u have the ID
