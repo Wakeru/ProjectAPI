@@ -4,9 +4,12 @@ import pygame
 
 #initialize the pygame mixer
 pygame.mixer.init()
+is_paused = False
 
 #works at least
 def play_song():
+    global is_paused
+    is_paused = False #reset it to play the song
     track_id = track_id_entry.get()
     #pygame.mixer.music.load({})  # Change to your music file path
     try:
@@ -26,6 +29,15 @@ def play_song():
         result_label.config(text=f"Error: {e}")
     #pygame.mixer.music.play(loops=0) #so it wont loop
 
+def toggle_pause():
+    global is_paused
+    if is_paused:
+        pygame.mixer.music.unpause()
+        pause_button.config(text="Pause")  # Update button text to "Pause"
+    else:
+        pygame.mixer.music.pause()
+        pause_button.config(text="Resume")  # Update button text to "Resume"
+    is_paused = not is_paused  # Toggle the paused state
     
 def fetch_track():
     track_id = track_id_entry.get()  # Get the song ID from the text field
@@ -39,11 +51,26 @@ def fetch_track():
     except Exception as e:
         result_label.config(text=f"Error: {e}")
 
+# Play a specific song
+def play_spec_song(track_path, track_title, track_artist):
+    try:
+        result_label.config(text=f"Now playing - Title: {track_title}, Artist: {track_artist}")
+        pygame.mixer.music.load("ProjAPI\music\Vhs.mp3") #cannot be named \vhs.mp3 cuz \v means something diff!!!
+        pygame.mixer.music.play(loops=0)
+        pygame.time.delay(2000)
+        pygame.mixer.music.load(track_path)
+        pygame.mixer.music.play(loops=0)
+    except Exception as e:
+        result_label.config(text=f"Error: {e}")
 
 def search():
     #two approaches, make one single text entry (HARD) i find this to be quite impossible and i have a time limit but maybe?
     # make multuiple entries(EASY) i have a vision but omg
     #query = search_entry.get() # Get the text and try the hard way
+    #destroy the results every time i press search in order to refresh it
+    for widget in result_search_frame.winfo_children(): 
+        widget.destroy()
+
     track_title = search_title_entry.get()      
     track_artist = search_artist_entry.get()
     track_album = search_ablum_entry.get()
@@ -58,11 +85,40 @@ def search():
     try:
         response = requests.get("http://127.0.0.1:5000/search-track", params=params)  #how to implement it.... no clue
         print(response.text)
-        
+        track_data = response.json()
+
         if response.status_code == 200:
-            track_data = response.json()
-            result_text = "\n".join(f"Title: {track['title']}, Artist: {track['artist']}, Album: {track['album']}" for track in track_data)
-            result_search_label.config(text=result_text)  # Update label with results
+            for track in track_data:
+                # Display each track info
+                track_info = f"Title: {track['title']}, Artist: {track['artist']}, Album: {track['album']}"
+                track_label = tk.Label(result_search_frame, text=track_info)
+                track_label.pack()
+
+                # Create a play button for each track
+                play_button = tk.Button(
+                    result_search_frame,
+                    text="Play",
+                    command=lambda path=track["path"], title=track["title"], artist=track["artist"]: 
+                        play_spec_song(path, title, artist)
+                )
+                play_button.pack()# Update label with results
+
+                #Create a vocal and beat button for each track
+                vocal_button = tk.Button(
+                    result_search_frame,
+                    text="Vocals",
+                    command=lambda path=track["path"], title=track["title"], artist=track["artist"]: 
+                        play_spec_song(path, title, artist) #make some logic here! im almost done!!!!!!
+                )
+                vocal_button.pack()# Update label with results
+
+                beats_button = tk.Button(
+                    result_search_frame,
+                    text="Beats",
+                    command=lambda path=track["path"], title=track["title"], artist=track["artist"]: 
+                        play_spec_song(path, title, artist)
+                )
+                beats_button.pack()# Update label with results
         else:
             result_search_label.config(text="Song not found")
     except Exception as e:
@@ -115,6 +171,9 @@ fetch_button.pack(pady=10)
 play_button = tk.Button(window, text="Play Song", command=play_song)
 play_button.pack(pady=10)
 
+pause_button = tk.Button(window, text="Pause", command=toggle_pause)
+pause_button.pack(pady=10)
+
 # Label to display the result
 # text area stinks
 result_label = tk.Label(window, text="")
@@ -145,6 +204,9 @@ search_button = tk.Button(window, text="Get the song", command=search)
 search_button.pack(pady=0)
 #---------------
 #results for search
+result_search_frame = tk.Frame(window)
+result_search_frame.pack(pady=5)
+
 result_search_label = tk.Label(window, text="")
 result_search_label.pack(pady=20)
 

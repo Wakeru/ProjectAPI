@@ -9,11 +9,12 @@ playlists = []
 
 # Preloaded list of 10 songs
 tracks = [
-    {"id": 1, "title": "Karma Police", "artist": "Pierce The Veil", "album": "Karma Police", "genre": "Rock", "path": "ProjAPI\music\Karma Police - Pierce The Veil.mp3"},
-    {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI\music\Blow Out.mp3"},
-    {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\SOFALOVE.mp3"},
-    {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3"},
-    {"id": 4, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": ""},
+    {"id": 1, "title": "Karma Police", "artist": "Pierce The Veil", "album": "Karma Police", "genre": "Rock", "path": "ProjAPI\music\Karma Police - Pierce The Veil.mp3", "vocal":"" , "beats":"" },
+    {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI\music\Blow Out.mp3", "vocal":"ProjAPI\vocals\Blow Out [vocals].mp3" ,"beats":"ProjAPI\beats\Blow Out [music].mp3"},
+    {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\SOFALOVE.mp3","vocal":"" , "beats":""},
+    {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3", "vocal":"" , "beats":""},
+    {"id": 5, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": "", "vocal":"" , "beats":""},
+    {"id": 6, "title": "Yes I Am", "artist": "RadioHead", "album": "Creep", "genre": "Rock", "path": "ProjAPI\music\Yes I Am.mp3", "vocal":"ProjAPI\vocals\Yes I Am_vocals.wav" , "beats":"ProjAPI\beats\Yes I Am_other.wav"},
     
     # Add more songs 
 ]
