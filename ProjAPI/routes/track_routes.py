@@ -9,15 +9,18 @@ playlists = []
 
 # Preloaded list of 10 songs
 tracks = [
-    {"id": 1, "title": "Karma Police", "artist": "Pierce The Veil", "album": "Karma Police", "genre": "Rock", "path": "ProjAPI\music\Karma Police - Pierce The Veil.mp3", "vocal":"" , "beats":"" },
-    {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI\music\Blow Out.mp3", "vocal":"ProjAPI\vocals\Blow Out [vocals].mp3" ,"beats":"ProjAPI\beats\Blow Out [music].mp3"},
-    {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\SOFALOVE.mp3","vocal":"" , "beats":""},
-    {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI\music\EXCUSEMEMADAME.mp3", "vocal":"" , "beats":""},
-    {"id": 5, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": "", "vocal":"" , "beats":""},
-    {"id": 6, "title": "Yes I Am", "artist": "RadioHead", "album": "Creep", "genre": "Rock", "path": "ProjAPI\music\Yes I Am.mp3", "vocal":"ProjAPI\vocals\Yes I Am_vocals.wav" , "beats":"ProjAPI\beats\Yes I Am_other.wav"},
-    
-    # Add more songs 
+    {"id": 1, "title": "Karma Police", "artist": "Pierce The Veil", "album": "Karma Police", "genre": "Rock", "path": "ProjAPI/music/Karma Police - Pierce The Veil.mp3", "vocal":"ProjAPI/vocals/Karma-Police---Pierce-The-Veil_vocals.mp3", "beats":"ProjAPI/beats/Karma-Police---Pierce-The-Veil_music.mp3", "bpm":76, "key":"G"},
+    {"id": 2, "title": "Blow Out", "artist": "RadioHead", "album": "Pablo Honey", "genre": "Rock", "path": "ProjAPI/music/Blow Out.mp3", "vocal":"ProjAPI/vocals/Blow Out [vocals].mp3", "beats":"ProjAPI/beats/Blow Out [music].mp3", "bpm":142, "key":"B"},
+    {"id": 3, "title": "SOFALOVE", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI/music/SOFALOVE.mp3", "vocal":"ProjAPI/vocals/sofalove[vocals].mp3", "beats":"ProjAPI/beats/sofalove[beats].mp3", "bpm":120, "key":"E"},
+    {"id": 4, "title": "EXCUSEMEMADAME", "artist": "Javi Vera", "album": "Junior Varsity", "genre": "Rock", "path": "ProjAPI/music/EXCUSEMEMADAME.mp3", "vocal":"ProjAPI/vocals/EXCUSEMEMADAME_vocals.mp3", "beats":"ProjAPI/beats/EXCUSEMEMADAME_music.mp3", "bpm":80, "key":"F#"},
+    {"id": 5, "title": "Basement Jack", "artist": "Steve Lacy", "album": "Apollo XXI", "genre": "R&B", "path": "ProjAPI/music/Basement Jack.mp3", "vocal":"ProjAPI/vocals/basement_jack[vocals].mp3", "beats":"ProjAPI/beats/basement_jack[beats].mp3", "bpm":175, "key":"G#"},
+    {"id": 6, "title": "Yes I Am", "artist": "RadioHead", "album": "Creep", "genre": "Rock", "path": "ProjAPI/music/Yes I Am.mp3", "vocal":"ProjAPI/vocals/Yes I Am_vocals.wav", "beats":"ProjAPI/beats/Yes I Am_other.wav", "bpm":107, "key":"E"},
+    {"id": 7, "title": "Miss You Most (At Christmas Time)", "artist": "Mariah Carey", "album": "Merry Christmas (Deluxe Anniversary Edition)", "genre": "Pop", "path": "ProjAPI/music/Miss You Most (At Christmas Time).mp3", "vocal":"ProjAPI/vocals/Miss You Most (At Christmas Time) [vocals].mp3", "beats":"ProjAPI/beats/Miss You Most (At Christmas Time) [music].mp3", "bpm":140, "key":"D"},
+    {"id": 8, "title": "Techno Show", "artist": "Peach Pit", "album": "Being So Normal", "genre": "Indie", "path": "ProjAPI/music/Techno Show.mp3", "vocal":"ProjAPI/vocals/techno_show[vocals].mp3", "beats":"ProjAPI/beats/techno_show[beats].mp3", "bpm":89, "key":"C#"},
+    {"id": 9, "title": "Action Figures Fighting", "artist": "Hotel Ugly", "album": "Ugly Duck", "genre": "Indie", "path": "ProjAPI/music/Action Figures Fighting.mp3", "vocal":"ProjAPI/vocals/Action-Figures-Fighting_vocals.mp3", "beats":"ProjAPI/beats/Action-Figures-Fighting_music.mp3", "bpm":120, "key":"E"},
+    {"id": 10, "title": "Witchy(feat. Chilidsh Gambino)", "artist": "KAYTRANDA", "album": "TIMELSS", "genre": "R&B", "path": "ProjAPI/music/Witchy (feat. Childish Gambino).mp3", "vocal": "ProjAPI/vocals/Witchy-feat.-Childish-Gambino_vocals.mp3", "beats": "ProjAPI/beats/Witchy-feat.-Childish-Gambino_music.mp3", "bpm": 110, "key": "F"},
 ]
+
 
 
 @track_blueprint.route("/get-ALL-tracks", methods=["GET"])
