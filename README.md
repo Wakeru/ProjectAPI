@@ -1,5 +1,5 @@
 # ProjectAPI
- a development porject for discovering, learning and implementing new features in API
+ a development project for discovering, learning and implementing new features in my API music library
 <br>
 <br>
 currently using: 3.11.9 64bit python interperator from the Microsoft Store
